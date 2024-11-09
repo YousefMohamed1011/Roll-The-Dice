@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dice Roll</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        background-color: rgb(10, 1, 134);
+        height: 100vh;
+      }
+
+      .container {
+        width: 400px;
+        padding: 50px;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        top: 50%;
+        left: 50%;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #222;
+      }
+
+      .dice {
+        font-size: 70px;
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        color: blue;
+      }
+
+      p {
+        font-size: 16px;
+        margin: 30px 0;
+        font-weight: bold;
+      }
+
+      button {
+        background-color: blue;
+        outline: 0;
+        border: 0;
+        padding: 15px 10px;
+        color: white;
+        font-size: 10px;
+        font-weight: bold;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .sh {
+        animation: sh 0.5s infinite;
+      }
+
+      @keyframes sh {
+        0% {
+          transform: rotate(8deg);
+        }
+        50% {
+          transform: rotate(-8deg);
+        }
+        100% {
+          transform: rotate(8deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="dice">
+        <i class="fa fa-dice-one"></i>
+        <i class="fa fa-dice-two"></i>
+      </div>
+      <p id="total">Your roll is 0 and 0</p>
+      <button onclick="roll()">Roll Dice</button>
+    </div>
+
+    <script>
+      let icons = [
+        "fa-dice-one",
+        "fa-dice-two",
+        "fa-dice-three",
+        "fa-dice-four",
+        "fa-dice-five",
+        "fa-dice-six",
+      ];
+
+      let dice = document.querySelectorAll("i");
+
+      function roll() {
+        dice.forEach(function (d) {
+          d.classList.add("sh");
+        });
+
+        setTimeout(function () {
+          dice.forEach(function (d) {
+            d.classList.remove("sh");
+            icons.forEach((icon) => d.classList.remove(icon));
+          });
+
+          let dic = Math.floor(Math.random() * 6);
+          let dict = Math.floor(Math.random() * 6);
+          console.log(dic, dict);
+
+          dice[0].classList.add(icons[dic]);
+          dice[1].classList.add(icons[dict]);
+          document.querySelector("#total").innerHTML =
+            "Your roll is " + (dic + 1) + " and " + (dict + 1);
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>
